@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Raghav Arora – Business & Data Analyst. SQL, Python, AWS, forecasting and dashboards.">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Raghav Arora</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column with a left mono "rail" for section labels; a sticky nav on top; interactive layers (skill filter, project explorer) sit inside the normal flow. */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #16202e;
+  --muted: #5a6577;
+  --rule: #dde1e8;
+  --accent: #c76a00;
+  --accent-soft: #fbeedd;
+  --on-accent: #ffffff;
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f141c; --surface: #161d28; --ink: #e8ecf2; --muted: #98a3b5;
+    --rule: #263042; --accent: #f2a03c; --accent-soft: #33260f; --on-accent: #16120a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f141c; --surface: #161d28; --ink: #e8ecf2; --muted: #98a3b5;
+  --rule: #263042; --accent: #f2a03c; --accent-soft: #33260f; --on-accent: #16120a; color-scheme: dark;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: var(--accent); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.gutter {
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.inner { max-width: 980px; margin: 0 auto; }
+
+/* Sticky nav */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+.nav .inner { display: flex; align-items: center; gap: 16px; height: 56px; }
+.nav .mark { font-family: var(--display); font-weight: 700; font-size: 18px; text-decoration: none; color: var(--ink); white-space: nowrap; }
+.nav .links { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+.nav .links::-webkit-scrollbar { display: none; }
+.nav .links a {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 4px; white-space: nowrap;
+}
+.nav .links a:hover, .nav .links a.on { color: var(--ink); background: var(--surface); }
+.theme-btn {
+  flex: none; width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--rule); background: var(--surface); display: grid; place-items: center;
+}
+.theme-btn svg { width: 18px; height: 18px; fill: none; stroke: var(--ink); stroke-width: 1.8; }
+
+main.inner { padding-block: 48px 72px; display: grid; gap: 72px; }
+
+.label {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+/* Hero */
+.hero { display: grid; gap: 20px; }
+.hero .label { color: var(--accent); }
+h1 {
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(44px, 9vw, 88px); line-height: .95; letter-spacing: -.03em;
+  margin: 0; text-wrap: balance;
+}
+.role { font-size: clamp(18px, 2.4vw, 22px); color: var(--muted); margin: 0; max-width: 44ch; text-wrap: balance; }
+.role strong { color: var(--ink); font-weight: 600; }
+.summary { max-width: 64ch; margin: 4px 0 0; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 600; font-size: 15px; text-decoration: none;
+  padding: 10px 16px; border-radius: 6px; border: 1px solid var(--rule);
+  background: var(--surface); color: var(--ink);
+  transition: border-color .15s, transform .15s;
+}
+.btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* Impact strip */
+.impact-wrap { display: grid; gap: 10px; }
+.impact {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule);
+}
+.metric {
+  text-align: left; background: none; border: 0; border-radius: 0;
+  padding: 20px 20px 22px 0; display: grid; gap: 6px; align-content: start;
+  transition: background .15s;
+}
+.metric + .metric { padding-left: 20px; border-left: 1px solid var(--rule); }
+.metric:hover { background: var(--accent-soft); }
+.metric .num {
+  font-family: var(--display); font-weight: 700; font-size: clamp(30px, 4vw, 40px);
+  line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+}
+.metric .num em { font-style: normal; color: var(--accent); }
+.metric p { margin: 0; font-size: 14px; color: var(--muted); line-height: 1.45; }
+.metric .go { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.hint { font-family: var(--mono); font-size: 12px; color: var(--muted); margin: 0; }
+
+/* Section rail */
+section.block { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 32px; }
+section.block > h2 {
+  margin: 0; padding-top: 4px;
+  font-family: var(--mono); font-size: 12px; font-weight: 500; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.content { min-width: 0; display: grid; gap: 28px; }
+
+/* Skill filter */
+.filter {
+  display: grid; gap: 12px; padding: 16px 18px;
+  border: 1px solid var(--rule); border-radius: 8px; background: var(--surface);
+}
+.filter-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: baseline; }
+.filter-head strong { font-size: 15px; }
+.status { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-family: var(--mono); font-size: 13px; padding: 5px 11px;
+  border: 1px solid var(--rule); border-radius: 999px; background: var(--bg); color: var(--muted);
+  transition: all .15s;
+}
+.chip:hover { border-color: var(--accent); color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.clear { font-family: var(--mono); font-size: 12px; background: none; border: 0; color: var(--accent); padding: 0; text-decoration: underline; }
+
+/* Jobs */
+.jobs { display: grid; gap: 48px; }
+.job { display: grid; gap: 12px; min-width: 0; }
+.job-head { display: grid; gap: 4px; }
+.job h3 { font-family: var(--display); font-weight: 700; font-size: 26px; line-height: 1.15; margin: 0; letter-spacing: -.01em; }
+.job .title { font-weight: 600; margin: 0; }
+.job .meta { font-family: var(--mono); font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.job .meta .now { color: var(--accent); }
+.job ul { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; max-width: 70ch; }
+.job li {
+  position: relative; padding: 6px 10px 6px 26px; border-radius: 6px;
+  transition: opacity .2s, background .2s;
+}
+.job li::before {
+  content: ""; position: absolute; left: 8px; top: 1.05em;
+  width: 8px; height: 2px; background: var(--accent);
+}
+.hl { font-weight: 600; }
+.filtering .job li { opacity: .35; }
+.filtering .job li.match { opacity: 1; background: var(--accent-soft); }
+.filtering .job:not(:has(li.match)) .job-head { opacity: .45; }
+li.flash { animation: flash 1.6s ease-out; }
+@keyframes flash { 0%, 30% { background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); } 100% { background: transparent; box-shadow: inset 3px 0 0 transparent; } }
+
+/* Project explorer */
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; }
+.tab {
+  padding: 8px 14px; border-radius: 6px; border: 1px solid var(--rule);
+  background: var(--surface); font-weight: 600; font-size: 15px;
+}
+.tab[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+.panel { display: grid; gap: 18px; }
+.panel > p { margin: 0; max-width: 66ch; }
+.pipeline { overflow-x: auto; padding-bottom: 4px; }
+.steps { display: flex; align-items: stretch; gap: 0; min-width: min-content; }
+.step {
+  flex: 1 1 0; min-width: 118px; text-align: left;
+  border: 1px solid var(--rule); background: var(--surface); border-radius: 6px;
+  padding: 10px 12px; display: grid; gap: 2px; align-content: start;
+  transition: border-color .15s, background .15s;
+}
+.step .n { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+.step .t { font-weight: 600; font-size: 14px; line-height: 1.3; }
+.step:hover { border-color: var(--accent); }
+.step[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.arrow { flex: none; width: 22px; display: grid; place-items: center; color: var(--muted); font-family: var(--mono); }
+.detail {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; max-width: 66ch; min-height: 3.2em;
+}
+.detail .label { display: block; margin-bottom: 2px; color: var(--accent); }
+.detail p { margin: 0; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-family: var(--mono); font-size: 12px; padding: 3px 9px;
+  border: 1px solid var(--rule); border-radius: 4px; color: var(--muted); background: var(--surface);
+}
+
+/* Skills */
+.skills { display: grid; gap: 20px; }
+.skill-row { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 16px; padding-bottom: 20px; border-bottom: 1px solid var(--rule); }
+.skill-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.skill-row h3 { margin: 0; font-size: 15px; font-weight: 600; }
+.skill-row .stack .tag { font-size: 13px; padding: 4px 10px; }
+
+/* Education */
+.edu { display: grid; gap: 24px; }
+.school { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; align-items: baseline; }
+.school h3 { margin: 0; font-family: var(--display); font-size: 21px; font-weight: 700; letter-spacing: -.01em; }
+.school .where { margin: 0; color: var(--muted); grid-column: 1; }
+.school .gpa { font-family: var(--mono); font-size: 14px; text-align: right; grid-column: 2; grid-row: 1; font-variant-numeric: tabular-nums; }
+.school .dates { font-family: var(--mono); font-size: 13px; color: var(--muted); text-align: right; grid-column: 2; grid-row: 2; }
+
+/* Contact */
+.contact { display: grid; gap: 0; border-top: 2px solid var(--ink); }
+.c-row {
+  display: grid; grid-template-columns: 110px minmax(0, 1fr) auto; gap: 12px; align-items: center;
+  padding: 14px 0; border-bottom: 1px solid var(--rule);
+}
+.c-row .label { margin: 0; }
+.c-row .val { font-size: 16px; overflow-wrap: anywhere; min-width: 0; user-select: all; }
+.c-row a.val { color: var(--ink); text-decoration-color: var(--accent); text-underline-offset: 3px; user-select: auto; }
+.copy {
+  font-family: var(--mono); font-size: 12px; padding: 6px 10px; border-radius: 4px;
+  border: 1px solid var(--rule); background: var(--surface); min-width: 70px;
+}
+.copy:hover { border-color: var(--accent); }
+.copy.done { border-color: var(--accent); color: var(--accent); }
+
+footer { font-family: var(--mono); font-size: 12px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 20px; }
+
+@media (max-width: 760px) {
+  main.inner { padding-block: 32px 56px; gap: 56px; }
+  .nav .mark { display: none; }
+  .nav .links { margin-left: 0; flex: 1; }
+  .impact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .metric:nth-child(3) { padding-left: 0; border-left: 0; }
+  .metric:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  section.block { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  section.block > h2 { border-bottom: 1px solid var(--rule); padding-bottom: 8px; }
+  .skill-row { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .c-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .c-row .label { grid-column: 1 / -1; }
+}
+@media (max-width: 440px) {
+  .school { grid-template-columns: minmax(0, 1fr); }
+  .school .gpa, .school .dates { grid-column: 1; grid-row: auto; text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav gutter" aria-label="Sections">
+  <div class="inner">
+    <a class="mark" href="#top">Raghav Arora</a>
+    <div class="links">
+      <a href="#contact">Contact</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </div>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="gutter">
+<main class="inner" id="top">
+
+  <header class="hero">
+    <h1>Raghav Arora</h1>
+    <p class="role"><strong>SQL · Python · AWS · Forecasting · Dashboards.</strong> Currently building data pipelines and analytics at Hanwha Qcells.</p>
+    <p class="summary">I build the pipelines, ETL workflows, API integrations, and internal tools that turn messy operational data into decisions. My work spans clean-energy sales operations at Hanwha Qcells and humanoid-robot data collection for Tesla Optimus, backed by an M.S. in Business Analytics.</p>
+    <div class="cta">
+      <a class="btn" href="https://www.linkedin.com/in/raghav-arora-9a7020185/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg>LinkedIn</a>
+      <a class="btn" href="https://github.com/rarora9669" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>GitHub</a>
+    </div>
+  </header>
+
+  <section class="block" id="contact" aria-labelledby="contact-h">
+    <h2 id="contact-h">Contact</h2>
+    <div class="contact">
+      <div class="c-row"><span class="label">Email</span><span class="val" id="v-email">rarora4100@gmail.com</span><button class="copy" type="button" data-copy="v-email">Copy</button></div>
+      <div class="c-row"><span class="label">LinkedIn</span><a class="val" id="v-li" href="https://www.linkedin.com/in/raghav-arora-9a7020185/" target="_blank" rel="noopener">linkedin.com/in/raghav-arora-9a7020185</a><button class="copy" type="button" data-copy="v-li" data-value="https://www.linkedin.com/in/raghav-arora-9a7020185/">Copy</button></div>
+      <div class="c-row"><span class="label">GitHub</span><a class="val" id="v-gh" href="https://github.com/rarora9669" target="_blank" rel="noopener">github.com/rarora9669</a><button class="copy" type="button" data-copy="v-gh" data-value="https://github.com/rarora9669">Copy</button></div>
+    </div>
+  </section>
+
+  <div class="impact-wrap">
+    <div class="impact" aria-label="Selected impact">
+      <button class="metric" type="button" data-target="b-revenue"><span class="num"><em>~$</em>300K</span><p>Annual revenue opportunity found by closing a 33% proposal-capture gap</p><span class="go">See how ↓</span></button>
+      <button class="metric" type="button" data-target="b-sync"><span class="num">~12<em>h</em></span><p>Manual work removed each week through end-to-end automation</p><span class="go">See how ↓</span></button>
+      <button class="metric" type="button" data-target="b-sync"><span class="num">40s<em>→</em>2s</span><p>Hardware Cost query runtime after pipeline cleanup</p><span class="go">See how ↓</span></button>
+      <button class="metric" type="button" data-target="b-clips"><span class="num">110K<em>+</em></span><p>Motion-capture clips delivered for the Optimus program</p><span class="go">See how ↓</span></button>
+    </div>
+    <p class="hint">Tap a number to jump to the work behind it.</p>
+  </div>
+
+  <section class="block" id="experience" aria-labelledby="exp-h">
+    <h2 id="exp-h">Experience</h2>
+    <div class="content" id="expContent">
+
+      <div class="filter">
+        <div class="filter-head">
+          <strong>Filter by skill</strong>
+          <span class="status" id="filterStatus" aria-live="polite">Showing all work</span>
+        </div>
+        <div class="chips" id="chips">
+          <button class="chip" type="button" data-skill="python" aria-pressed="false">Python</button>
+          <button class="chip" type="button" data-skill="sql" aria-pressed="false">SQL / PostgreSQL</button>
+          <button class="chip" type="button" data-skill="aws" aria-pressed="false">AWS</button>
+          <button class="chip" type="button" data-skill="api" aria-pressed="false">REST APIs</button>
+          <button class="chip" type="button" data-skill="etl" aria-pressed="false">ETL &amp; Automation</button>
+          <button class="chip" type="button" data-skill="model" aria-pressed="false">Forecasting &amp; Modeling</button>
+          <button class="chip" type="button" data-skill="bi" aria-pressed="false">Dashboards &amp; BI</button>
+          <button class="chip" type="button" data-skill="quality" aria-pressed="false">Data Quality</button>
+          <button class="chip" type="button" data-skill="ops" aria-pressed="false">Process Improvement</button>
+        </div>
+        <div><button class="clear" id="clearBtn" type="button" hidden>Clear filter</button></div>
+      </div>
+
+      <div class="jobs">
+        <article class="job">
+          <div class="job-head">
+            <h3>Hanwha Qcells America</h3>
+            <p class="title">Business Planning Analyst · Data Engineering &amp; Analytics</p>
+            <div class="meta"><span class="now">Mar 2026 – Present</span><span>San Francisco, CA</span></div>
+          </div>
+          <ul>
+            <li id="b-revenue" data-skills="python api etl quality">Identified a <span class="hl">~$300K annual revenue opportunity</span> by closing a 33% proposal-capture gap (about 75 of 225 daily proposals) using Python, REST APIs, data validation, and automated ETL.</li>
+            <li id="b-sync" data-skills="python sql aws etl quality">Automated a daily Salesforce → PostgreSQL → Aurora process that took ~1.5 hours by hand. Resolved ID mismatches, duplicate design records, and tax errors across 10K+ project records, and cut Hardware Cost query runtime from <span class="hl">40 seconds to 2</span>.</li>
+            <li data-skills="python aws bi etl">Automated fulfillment and partner reporting with Python and AWS: 19-sheet QuickSight reports for 50+ recipients and commission emails for 45+ partners, saving about one analyst hour per day.</li>
+            <li data-skills="python api model">Built a lead-qualification and financial modeling platform that delivers personalized <span class="hl">30-year solar ROI forecasts in under 30 seconds</span>, using NREL PVWatts, geospatial APIs, utility-rate data, and hourly energy simulation.</li>
+            <li data-skills="aws sql api">Built a full-stack internal operations platform with React, Cognito, Amplify, API Gateway, Lambda, and PostgreSQL: pricing workflows, a 27-report CSV hub, and an isolated staging environment across 6+ schemas and 25+ views and tables.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-head">
+            <h3>Tesla · Optimus</h3>
+            <p class="title">Data Operations Support II</p>
+            <div class="meta"><span>Apr 2024 – Apr 2026</span><span>Palo Alto, CA</span></div>
+          </div>
+          <ul>
+            <li id="b-clips" data-skills="quality">Delivered <span class="hl">110K+ motion-capture clips</span> by running structured collection protocols, validating recordings, documenting anomalies, and keeping datasets clean for engineering.</li>
+            <li data-skills="ops">Improved operational efficiency by ~6% by analyzing collection workflows, finding recurring bottlenecks, and putting data-driven fixes in place.</li>
+            <li data-skills="bi ops">Enabled ~15% faster operational adjustments by tracking collection and performance KPIs in Grafana and escalating data-quality and equipment issues.</li>
+            <li data-skills="quality ops">Raised collection reliability by troubleshooting motion-capture hardware, calibration, recording, and upload workflows with engineering and QA.</li>
+          </ul>
+        </article>
+
+        <article class="job">
+          <div class="job-head">
+            <h3>Evalueserve</h3>
+            <p class="title">Research Analyst</p>
+            <div class="meta"><span>Jul 2021 – Jul 2022</span><span>Gurugram, India</span></div>
+          </div>
+          <ul>
+            <li data-skills="bi">Grew business-development opportunities by ~10% by analyzing global market, technology, and patent datasets and turning them into client research, dashboards, and recommendations.</li>
+            <li data-skills="bi model">Supported IP valuation and strategy work with quantitative and qualitative patent-landscape analysis, presented to non-technical leadership through Tableau and advanced Excel.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projects" aria-labelledby="proj-h">
+    <h2 id="proj-h">Projects</h2>
+    <div class="content">
+      <div class="tabs" role="tablist" aria-label="Projects">
+        <button class="tab" type="button" role="tab" id="tab-roi" aria-selected="true" aria-controls="panel">Solar ROI platform</button>
+        <button class="tab" type="button" role="tab" id="tab-sync" aria-selected="false" aria-controls="panel">Salesforce data sync</button>
+        <button class="tab" type="button" role="tab" id="tab-portal" aria-selected="false" aria-controls="panel">Operations portal</button>
+      </div>
+      <div class="panel" id="panel" role="tabpanel" aria-labelledby="tab-roi">
+        <p id="projSummary"></p>
+        <div class="pipeline"><div class="steps" id="steps"></div></div>
+        <div class="detail" aria-live="polite"><span class="label" id="detailLabel"></span><p id="detailText"></p></div>
+        <div class="stack" id="projStack"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="skills" aria-labelledby="skills-h">
+    <h2 id="skills-h">Skills</h2>
+    <div class="skills">
+      <div class="skill-row"><h3>Programming &amp; Data</h3><div class="stack"><span class="tag">Python · pandas · NumPy</span><span class="tag">SQL</span><span class="tag">R</span><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">REST APIs</span><span class="tag">ETL / ELT</span><span class="tag">Relational modeling</span></div></div>
+      <div class="skill-row"><h3>Cloud &amp; Data Engineering</h3><div class="stack"><span class="tag">AWS Lambda</span><span class="tag">RDS</span><span class="tag">SQS</span><span class="tag">API Gateway</span><span class="tag">EventBridge</span><span class="tag">Amplify</span><span class="tag">SES</span><span class="tag">Serverless</span></div></div>
+      <div class="skill-row"><h3>Analytics &amp; Modeling</h3><div class="stack"><span class="tag">Machine learning</span><span class="tag">Forecasting</span><span class="tag">Statistical analysis</span><span class="tag">Financial modeling</span><span class="tag">Data validation</span></div></div>
+      <div class="skill-row"><h3>BI &amp; Visualization</h3><div class="stack"><span class="tag">Tableau</span><span class="tag">Power BI</span><span class="tag">Amazon QuickSight</span><span class="tag">Grafana</span><span class="tag">Excel · Power Query</span><span class="tag">KPI reporting</span></div></div>
+      <div class="skill-row"><h3>Automation &amp; Enterprise</h3><div class="stack"><span class="tag">Power Automate</span><span class="tag">Salesforce CRM</span><span class="tag">NetSuite</span><span class="tag">Jira</span></div></div>
+    </div>
+  </section>
+
+  <section class="block" id="education" aria-labelledby="edu-h">
+    <h2 id="edu-h">Education</h2>
+    <div class="edu">
+      <div class="school">
+        <h3>M.S. Business Analytics</h3>
+        <span class="gpa">3.85 / 4.0</span>
+        <p class="where">Cal Poly Pomona</p>
+        <span class="dates">2022 – 2024</span>
+      </div>
+      <div class="school">
+        <h3>B.E. Electronics &amp; Communication</h3>
+        <span class="gpa">8.33 / 10</span>
+        <p class="where">Thapar Institute of Technology</p>
+        <span class="dates">2017 – 2021</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>Raghav Arora</footer>
+</main>
+</div>
+
+<script>
+(function () {
+  /* Theme toggle */
+  var root = document.documentElement;
+  function isDark() {
+    var t = root.getAttribute('data-theme');
+    if (t) return t === 'dark';
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  try { var saved = localStorage.getItem('ra-theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('ra-theme', next); } catch (e) {}
+  });
+
+  /* Metric jump + flash */
+  document.querySelectorAll('.metric').forEach(function (m) {
+    m.addEventListener('click', function () {
+      var el = document.getElementById(m.dataset.target);
+      if (!el) return;
+      el.scrollIntoView({ block: 'center' });
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+    });
+  });
+
+  /* Skill filter */
+  var exp = document.getElementById('expContent');
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var items = Array.prototype.slice.call(document.querySelectorAll('.job li'));
+  var status = document.getElementById('filterStatus');
+  var clearBtn = document.getElementById('clearBtn');
+  function applyFilter(skill, label) {
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.skill === skill)); });
+    if (!skill) {
+      exp.classList.remove('filtering');
+      items.forEach(function (li) { li.classList.remove('match'); });
+      status.textContent = 'Showing all work';
+      clearBtn.hidden = true;
+      return;
+    }
+    var n = 0;
+    items.forEach(function (li) {
+      var hit = (li.dataset.skills || '').split(' ').indexOf(skill) > -1;
+      li.classList.toggle('match', hit); if (hit) n++;
+    });
+    exp.classList.add('filtering');
+    status.textContent = n + (n === 1 ? ' achievement uses ' : ' achievements use ') + label;
+    clearBtn.hidden = false;
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      var on = c.getAttribute('aria-pressed') === 'true';
+      applyFilter(on ? null : c.dataset.skill, c.textContent);
+    });
+  });
+  clearBtn.addEventListener('click', function () { applyFilter(null); });
+
+  /* Project explorer */
+  var projects = {
+    'tab-roi': {
+      summary: 'A lead-qualification tool that turns an address into a personalized 30-year solar ROI forecast in under 30 seconds.',
+      stack: ['Python', 'NREL PVWatts', 'Geospatial APIs', 'Utility-rate data', 'Financial modeling'],
+      steps: [
+        ['Address in', 'A lead’s address is the only required input, so sales can qualify a customer on the first call.'],
+        ['Geocode', 'Geospatial APIs resolve the address to coordinates and site details used by the solar model.'],
+        ['Simulate production', 'NREL PVWatts runs an hourly energy simulation for the site to estimate how much the system will generate.'],
+        ['Apply utility rates', 'Utility-rate data prices each hour of production against what the customer would otherwise pay.'],
+        ['30-year forecast', 'Savings roll up into a 30-year financial model, giving a personalized ROI the lead can act on.']
+      ]
+    },
+    'tab-sync': {
+      summary: 'A daily automated pipeline that replaced ~1.5 hours of manual work and cleaned 10K+ project records.',
+      stack: ['Python', 'Salesforce', 'PostgreSQL', 'AWS Aurora', 'SQL'],
+      steps: [
+        ['Extract', 'Project and design records are pulled from Salesforce each day instead of exported by hand.'],
+        ['Validate', 'Python checks resolve ID mismatches and duplicate design records, and correct tax calculations.'],
+        ['Load', 'Clean records land in PostgreSQL and Aurora, ready for reporting.'],
+        ['Optimize', 'Query and model cleanup cut the Hardware Cost query from 40 seconds to 2 seconds.']
+      ]
+    },
+    'tab-portal': {
+      summary: 'A full-stack internal operations platform for pricing workflows and self-serve reporting.',
+      stack: ['React', 'Cognito', 'Amplify', 'API Gateway', 'Lambda', 'PostgreSQL'],
+      steps: [
+        ['Sign in', 'Cognito handles authentication so only internal teams reach the portal.'],
+        ['React front end', 'Hosted on Amplify, the interface covers pricing workflows and a 27-report CSV hub.'],
+        ['API layer', 'API Gateway routes requests to Lambda functions that run the business logic.'],
+        ['Data', 'PostgreSQL backs the app across 6+ schemas and 25+ views and tables, with an isolated staging environment for safe testing.']
+      ]
+    }
+  };
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var stepsEl = document.getElementById('steps');
+  function showStep(i, p) {
+    Array.prototype.forEach.call(stepsEl.querySelectorAll('.step'), function (s, k) { s.setAttribute('aria-pressed', String(k === i)); });
+    document.getElementById('detailLabel').textContent = 'Step ' + (i + 1) + ' · ' + p.steps[i][0];
+    document.getElementById('detailText').textContent = p.steps[i][1];
+  }
+  function showProject(id) {
+    var p = projects[id];
+    tabs.forEach(function (t) { t.setAttribute('aria-selected', String(t.id === id)); });
+    document.getElementById('panel').setAttribute('aria-labelledby', id);
+    document.getElementById('projSummary').textContent = p.summary;
+    stepsEl.innerHTML = '';
+    p.steps.forEach(function (s, i) {
+      if (i) { var a = document.createElement('span'); a.className = 'arrow'; a.setAttribute('aria-hidden', 'true'); a.textContent = '→'; stepsEl.appendChild(a); }
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'step';
+      b.innerHTML = '<span class="n">0' + (i + 1) + '</span><span class="t"></span>';
+      b.querySelector('.t').textContent = s[0];
+      b.addEventListener('click', function () { showStep(i, p); });
+      stepsEl.appendChild(b);
+    });
+    document.getElementById('projStack').innerHTML = p.stack.map(function (t) { return '<span class="tag">' + t + '</span>'; }).join('');
+    showStep(0, p);
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { showProject(t.id); }); });
+  showProject('tab-roi');
+
+  /* Copy buttons */
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.dataset.copy);
+      var text = b.dataset.value || el.textContent.trim();
+      function done(msg) { b.textContent = msg; b.classList.add('done'); setTimeout(function () { b.textContent = 'Copy'; b.classList.remove('done'); }, 1600); }
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        done('Selected');
+      }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { done('Copied'); }, fallback);
+        else fallback();
+      } catch (e) { fallback(); }
+    });
+  });
+
+  /* Active nav link */
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav .links a'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) links.forEach(function (l) { l.classList.toggle('on', l.getAttribute('href') === '#' + en.target.id); });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    ['experience', 'projects', 'skills', 'education', 'contact'].forEach(function (id) { var s = document.getElementById(id); if (s) io.observe(s); });
+  }
+})();
+</script>
+</body>
+</html>
